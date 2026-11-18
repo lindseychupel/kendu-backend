@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -18,6 +19,7 @@ class Psicologo(models.Model):
     especialidade = models.CharField(max_length=100)
     criado_em = models.DateTimeField(auto_now_add=True)
 
+
 class Paciente(models.Model):
     user = models.OneToOneField(
         User,
@@ -25,6 +27,10 @@ class Paciente(models.Model):
         related_name='perfil_paciente'
     )
 
-    Psicologo = models.ForeignKey(
-        
+    psicologo = models.ForeignKey(
+        Psicologo,
+        on_delete=models.PROTECT,
+        related_name='pacientes'
     )
+
+    criado_em = models.DateTimeField(auto_now_add=True)
